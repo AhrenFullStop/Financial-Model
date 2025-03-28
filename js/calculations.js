@@ -22,7 +22,6 @@ const Calculations = {
         const batteryLeaseRate = inputs['battery-lease-rate'] / 100;
         const batteryEscalation = inputs['battery-escalation'] / 100;
         const insuranceRate = inputs['insurance-rate'] / 100;
-        const maintenanceRate = inputs['maintenance-rate'] / 100;
         const landlordDiscount = inputs['landlord-discount'] / 100;
         const omFee = inputs['om-fee'] / 100;
         const platformFee = inputs['platform-fee'] / 100;
@@ -37,9 +36,8 @@ const Calculations = {
         // Calculate monthly battery lease amount
         const monthlyBatteryLease = (batteryCost * batteryLeaseRate) / 12;
         
-        // Calculate monthly insurance and maintenance costs
+        // Calculate monthly insurance costs
         const monthlyInsurance = (capitalInvestment * insuranceRate) / 12;
-        const monthlyMaintenance = (capitalInvestment * maintenanceRate) / 12;
         
         // Calculate the monthly battery capital recovery
         // If battery lease rate is 20% annually, we recover 1.67% of the battery cost per month
@@ -90,7 +88,7 @@ const Calculations = {
             const landlordRoofRental = totalRevenue * landlordDiscount;
             
             // Calculate total fees
-            const totalFees = monthlyInsurance + monthlyMaintenance + landlordRoofRental;
+            const totalFees = monthlyInsurance + landlordRoofRental;
             
             // Calculate gross cash flow
             const grossCashFlow = totalRevenue - totalFees;
@@ -118,7 +116,6 @@ const Calculations = {
                 batteryReturnOnInvestment: batteryReturnOnInvestment,
                 totalRevenue: totalRevenue + batteryCapitalRecovery, // Include capital recovery for display
                 insurance: monthlyInsurance,
-                maintenance: monthlyMaintenance,
                 landlordRoofRental: landlordRoofRental,
                 totalFees: totalFees,
                 grossCashFlow: grossCashFlow + batteryCapitalRecovery, // Include capital recovery
@@ -280,7 +277,6 @@ const Calculations = {
             'battery-lease-rate',
             'battery-escalation',
             'insurance-rate',
-            'maintenance-rate',
             'landlord-discount',
             'om-fee',
             'platform-fee',
@@ -315,7 +311,6 @@ const Calculations = {
             'battery-lease-rate',
             'battery-escalation',
             'insurance-rate',
-            'maintenance-rate',
             'landlord-discount',
             'om-fee',
             'platform-fee',

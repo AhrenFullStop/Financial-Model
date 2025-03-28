@@ -9,34 +9,62 @@ const Tables = {
      * @param {Array} cashFlows - Array of cash flow objects
      */
     generateCashFlowTable: function(cashFlows) {
+        // Get table header and body
+        const tableHead = document.querySelector('#cash-flow-table thead tr');
         const tableBody = document.getElementById('cash-flow-body');
-        if (!tableBody) return;
+        
+        if (!tableHead || !tableBody) return;
         
         // Clear existing content
+        // Keep the first header cell (Return Type)
+        while (tableHead.children.length > 1) {
+            tableHead.removeChild(tableHead.lastChild);
+        }
         tableBody.innerHTML = '';
         
-        // Generate rows for each month
+        // Add date headers
         cashFlows.forEach(cf => {
+            const th = document.createElement('th');
+            th.textContent = Utils.formatMonthYear(cf.date);
+            tableHead.appendChild(th);
+        });
+        
+        // Define the metrics we want to display as rows
+        const metrics = [
+            { id: 'solarRevenue', label: 'Solar Revenue (R)' },
+            { id: 'batteryRevenue', label: 'Battery Revenue (R)' },
+            { id: 'totalRevenue', label: 'Total Revenue (R)', highlight: true },
+            { id: 'insurance', label: 'Insurance (R)' },
+            { id: 'landlordRoofRental', label: 'Landlord Roof Rental (R)' },
+            { id: 'totalFees', label: 'Total Fees (R)' },
+            { id: 'grossCashFlow', label: 'Gross Cash Flow (R)', highlight: true },
+            { id: 'omFee', label: 'O&M Fee (R)' },
+            { id: 'platformFee', label: 'Platform Fee (R)' },
+            { id: 'ebt', label: 'EBT (R)' },
+            { id: 'adjustedEbt', label: 'Adjusted EBT (R)'},
+            { id: 'cumulativeReturn', label: 'Cumulative Return (R)', highlight: true },
+        ];
+        
+        // Generate a row for each metric
+        metrics.forEach(metric => {
             const row = document.createElement('tr');
             
-            // Add cells for each column
-            row.innerHTML = `
-                <td>${cf.month}</td>
-                <td>${Utils.formatMonthYear(cf.date)}</td>
-                <td>${Utils.formatCurrency(cf.solarRevenue)}</td>
-                <td>${Utils.formatCurrency(cf.batteryRevenue)}</td>
-                <td>${Utils.formatCurrency(cf.totalRevenue)}</td>
-                <td>${Utils.formatCurrency(cf.insurance)}</td>
-                <td>${Utils.formatCurrency(cf.maintenance)}</td>
-                <td>${Utils.formatCurrency(cf.landlordRoofRental)}</td>
-                <td>${Utils.formatCurrency(cf.totalFees)}</td>
-                <td>${Utils.formatCurrency(cf.grossCashFlow)}</td>
-                <td>${Utils.formatCurrency(cf.omFee)}</td>
-                <td>${Utils.formatCurrency(cf.platformFee)}</td>
-                <td>${Utils.formatCurrency(cf.ebt)}</td>
-                <td>${Utils.formatCurrency(cf.adjustedEbt)}</td>
-                <td>${Utils.formatCurrency(cf.cumulativeReturn)}</td>
-            `;
+            // Add highlight class if this is a row that should be highlighted
+            if (metric.highlight) {
+                row.classList.add('highlight-row');
+            }
+            
+            // Add the metric label as the first cell
+            const labelCell = document.createElement('td');
+            labelCell.textContent = metric.label;
+            row.appendChild(labelCell);
+            
+            // Add a cell for each month's value
+            cashFlows.forEach(cf => {
+                const cell = document.createElement('td');
+                cell.textContent = Utils.formatCurrency(cf[metric.id]);
+                row.appendChild(cell);
+            });
             
             // Add the row to the table
             tableBody.appendChild(row);
@@ -136,50 +164,39 @@ const Tables = {
      * @returns {string} CSV content
      */
     exportCashFlowsToCSV: function(cashFlows) {
-        // Define headers
-        const headers = [
-            'Month',
-            'Date',
-            'Solar Revenue (R)',
-            'Battery Revenue (R)',
-            'Battery Capital Recovery (R)',
-            'Battery Return on Investment (R)',
-            'Total Revenue (R)',
-            'Insurance (R)',
-            'Maintenance (R)',
-            'Landlord Roof Rental (R)',
-            'Total Fees (R)',
-            'Gross Cash Flow (R)',
-            'O&M Fee (R)',
-            'Platform Fee (R)',
-            'EBT (R)',
-            'Adjusted EBT (R)',
-            'Cumulative Return (R)',
-            'Cumulative Battery Capital Recovered (R)'
+        // Define the metrics we want to include - match the display metrics
+        const metrics = [
+            { id: 'solarRevenue', label: 'Solar Revenue (R)' },
+            { id: 'batteryRevenue', label: 'Battery Revenue (R)' },
+            { id: 'totalRevenue', label: 'Total Revenue (R)', highlight: true },
+            { id: 'insurance', label: 'Insurance (R)' },
+            { id: 'landlordRoofRental', label: 'Landlord Roof Rental (R)' },
+            { id: 'totalFees', label: 'Total Fees (R)' },
+            { id: 'grossCashFlow', label: 'Gross Cash Flow (R)', highlight: true },
+            { id: 'omFee', label: 'O&M Fee (R)' },
+            { id: 'platformFee', label: 'Platform Fee (R)' },
+            { id: 'ebt', label: 'EBT (R)' },
+            { id: 'adjustedEbt', label: 'Adjusted EBT (R)' },
+            { id: 'cumulativeReturn', label: 'Cumulative Return (R)', highlight: true },
         ];
+        
+        // Create headers row with dates
+        let headers = ['Return Type'];
+        cashFlows.forEach(cf => {
+            headers.push(Utils.formatMonthYear(cf.date));
+        });
         
         // Create CSV content
         let csvContent = headers.join(',') + '\n';
         
-        // Add rows
-        cashFlows.forEach(cf => {
-            const row = [
-                cf.month,
-                Utils.formatMonthYear(cf.date),
-                cf.solarRevenue,
-                cf.batteryRevenue,
-                cf.totalRevenue,
-                cf.insurance,
-                cf.maintenance,
-                cf.landlordRoofRental,
-                cf.totalFees,
-                cf.grossCashFlow,
-                cf.omFee,
-                cf.platformFee,
-                cf.ebt,
-                cf.adjustedEbt,
-                cf.cumulativeReturn,
-            ];
+        // Add a row for each metric
+        metrics.forEach(metric => {
+            let row = [metric.label];
+            
+            // Add values for each month
+            cashFlows.forEach(cf => {
+                row.push(cf[metric.id]);
+            });
             
             csvContent += row.join(',') + '\n';
         });

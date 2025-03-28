@@ -449,9 +449,7 @@ fieldset:not(:first-of-type) {
 }
 
 .data-table th:first-child,
-.data-table td:first-child,
-.data-table th:nth-child(2),
-.data-table td:nth-child(2) {
+.data-table td:first-child {
     text-align: left;
     position: sticky;
     left: 0;
@@ -459,14 +457,32 @@ fieldset:not(:first-of-type) {
     z-index: 1;
 }
 
-.data-table th:first-child,
-.data-table th:nth-child(2) {
+.data-table th:first-child {
     background-color: var(--light-gray);
     z-index: 2;
 }
 
+/* Ensure date headers are readable */
+.data-table th {
+    white-space: nowrap;
+    min-width: 100px;
+}
+
 .data-table tr:hover {
     background-color: rgba(169, 214, 229, 0.1);
+}
+
+/* Highlighted rows with thicker borders */
+.data-table tr.highlight-row td {
+    border-top: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* Add extra padding to highlighted rows for better visual separation */
+.data-table tr.highlight-row td {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-weight: 600;
 }
 
 /* Charts */

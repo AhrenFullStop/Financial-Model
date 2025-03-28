@@ -259,7 +259,6 @@ const Utils = {
             'battery-lease-rate',
             'battery-escalation',
             'insurance-rate',
-            'maintenance-rate',
             'landlord-discount',
             'om-fee',
             'platform-fee',

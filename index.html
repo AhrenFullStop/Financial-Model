@@ -49,42 +49,42 @@
                             
                             <div class="form-group">
                                 <label for="solar-cost">Solar Asset Cost (R)</label>
-                                <input type="number" id="solar-cost" name="solar-cost" min="0" step="1" value="1638521" required>
+                                <input type="number" id="solar-cost" name="solar-cost" min="0" step="1" value="32455041" required>
                             </div>
                             
                             <div class="form-group">
                                 <label for="battery-cost">Battery Cost (R)</label>
-                                <input type="number" id="battery-cost" name="battery-cost" min="0" step="1" value="500000" required>
+                                <input type="number" id="battery-cost" name="battery-cost" min="0" step="1" value="42536407" required>
                             </div>
                             
                             <div class="form-group">
                                 <label for="capital-investment">Total Capital Investment (R)</label>
-                                <input type="number" id="capital-investment" name="capital-investment" min="0" step="1" value="2138521" readonly>
+                                <input type="number" id="capital-investment" name="capital-investment" min="0" step="1" value="74991448" readonly>
                                 <small>Automatically calculated as Solar Asset Cost + Battery Cost</small>
                             </div>
                             
                             <div class="form-group">
                                 <label for="pv-size">PV System Size (kWp)</label>
-                                <input type="number" id="pv-size" name="pv-size" min="0" step="0.1" value="87.2" required>
+                                <input type="number" id="pv-size" name="pv-size" min="0" step="0.1" value="2988" required>
                             </div>
                             
                             <div class="form-group">
                                 <label for="battery-size">Battery Size (kWh)</label>
-                                <input type="number" id="battery-size" name="battery-size" min="0" step="0.1" value="120" required>
+                                <input type="number" id="battery-size" name="battery-size" min="0" step="0.1" value="10032" required>
                             </div>
                             
                             <div class="form-group">
                                 <label for="energy-consumption">Average Energy Consumption per Month (kWh)</label>
-                                <input type="number" id="energy-consumption" name="energy-consumption" min="0" step="1" value="15098" required>
+                                <input type="number" id="energy-consumption" name="energy-consumption" min="0" step="1" value="12979" required>
                             </div>
                             
                             <div class="form-group">
                                 <label for="solar-term">Solar Asset Term (Years)</label>
                                 <select id="solar-term" name="solar-term" required>
                                     <option value="5">5 Years</option>
-                                    <option value="10" selected>10 Years</option>
+                                    <option value="10">10 Years</option>
                                     <option value="15">15 Years</option>
-                                    <option value="20">20 Years</option>
+                                    <option value="20" selected>20 Years</option>
                                 </select>
                             </div>
                             
@@ -92,8 +92,8 @@
                                 <label for="battery-term">Battery Term (Years)</label>
                                 <select id="battery-term" name="battery-term" required>
                                     <option value="5">5 Years</option>
-                                    <option value="8" selected>8 Years</option>
-                                    <option value="10">10 Years</option>
+                                    <option value="8">8 Years</option>
+                                    <option value="10" selected>10 Years</option>
                                     <option value="15">15 Years</option>
                                     <option value="20">20 Years</option>
                                 </select>
@@ -101,7 +101,7 @@
                             
                             <div class="form-group">
                                 <label for="installation-date">Installation Date</label>
-                                <input type="month" id="installation-date" name="installation-date" value="2024-01" required>
+                                <input type="month" id="installation-date" name="installation-date" value="2025-07" required>
                             </div>
                         </fieldset>
                         
@@ -121,12 +121,12 @@
                             
                             <div class="form-group">
                                 <label for="energy-generated">Energy Generated per Month (kWh)</label>
-                                <input type="number" id="energy-generated" name="energy-generated" min="0" step="1" value="12818" required>
+                                <input type="number" id="energy-generated" name="energy-generated" min="0" step="1" value="429645" required>
                             </div>
                             
                             <div class="form-group">
                                 <label for="energy-generated-p70">Energy Generated per Month (P70) (kWh)</label>
-                                <input type="number" id="energy-generated-p70" name="energy-generated-p70" min="0" step="1" value="8973" required>
+                                <input type="number" id="energy-generated-p70" name="energy-generated-p70" min="0" step="1" value="300751" required>
                             </div>
                         </fieldset>
                         
@@ -161,22 +161,17 @@
                             
                             <div class="form-group">
                                 <label for="insurance-rate">Insurance (% of capital per annum)</label>
-                                <input type="number" id="insurance-rate" name="insurance-rate" min="0" step="0.01" value="0.33" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="maintenance-rate">Maintenance (% of capital per annum)</label>
-                                <input type="number" id="maintenance-rate" name="maintenance-rate" min="0" step="0.01" value="2" required>
+                                <input type="number" id="insurance-rate" name="insurance-rate" min="0" step="0.01" value="0.4" required>
                             </div>
                             
                             <div class="form-group">
                                 <label for="landlord-discount">Landlord Discount (% of total revenue)</label>
-                                <input type="number" id="landlord-discount" name="landlord-discount" min="0" step="0.1" value="20" required>
+                                <input type="number" id="landlord-discount" name="landlord-discount" min="0" step="0.1" value="0" required>
                             </div>
                             
                             <div class="form-group">
                                 <label for="om-fee">O&M Asset Management Fee (% of total revenue)</label>
-                                <input type="number" id="om-fee" name="om-fee" min="0" step="0.01" value="3" required>
+                                <input type="number" id="om-fee" name="om-fee" min="0" step="0.01" value="1.5" required>
                             </div>
                             
                             <div class="form-group">
@@ -263,21 +258,8 @@
                                 <table id="cash-flow-table" class="data-table">
                                     <thead>
                                         <tr>
-                                            <th>Month</th>
-                                            <th>Date</th>
-                                            <th>Solar Revenue (R)</th>
-                                            <th>Battery Revenue (R)</th>
-                                            <th>Battery Capital Recovery (R)</th>
-                                            <th>Battery Return on Investment (R)</th>
-                                            <th>Total Revenue (R)</th>
-                                            <th>Insurance (R)</th>
-                                            <th>Maintenance (R)</th>
-                                            <th>Landlord Roof Rental (R)</th>
-                                            <th>Total Fees (R)</th>
-                                            <th>Gross Cash Flow (R)</th>
-                                            <th>O&M Fee (R)</th>
-                                            <th>Platform Fee (R)</th>
-                                            <th>EBT (R)</th>
+                                            <th>Return Type</th>
+                                            <!-- Month/Date headers will be populated by JavaScript -->
                                         </tr>
                                     </thead>
                                     <tbody id="cash-flow-body">

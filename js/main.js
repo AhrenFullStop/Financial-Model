@@ -160,6 +160,10 @@ function exportResults(results) {
     const cashFlowCSV = Tables.exportCashFlowsToCSV(results.cashFlows);
     downloadCSV(cashFlowCSV, 'solar_cash_flows.csv');
     
+    // Export annual cash flows
+    const annualCashFlowCSV = Tables.exportAnnualCashFlowsToCSV(results.cashFlows);
+    downloadCSV(annualCashFlowCSV, 'solar_annual_cash_flows.csv');
+    
     // Export buyout values
     const buyoutCSV = Tables.exportBuyoutToCSV(results.buyoutValues, results.cashFlows[0].date);
     downloadCSV(buyoutCSV, 'solar_buyout_values.csv');

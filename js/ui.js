@@ -114,6 +114,7 @@ const UI = {
         
         // Generate tables
         Tables.generateCashFlowTable(results.cashFlows);
+        Tables.generateAnnualCashFlowTable(results.cashFlows);
         Tables.generateBuyoutTable(results.buyoutValues, results.cashFlows[0].date);
         
         // Initialize charts

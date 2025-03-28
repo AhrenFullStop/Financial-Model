@@ -11,7 +11,7 @@ The Solar Energy Financing Calculator is a comprehensive tool designed to help i
 ## Features
 
 - **Comprehensive Input Parameters**: Configure all aspects of a solar energy project including system costs, energy generation, financial terms, and fee structures.
-- **Detailed Financial Projections**: View monthly cash flows over the entire contract term.
+- **Detailed Financial Projections**: View monthly and annual cash flows over the entire contract term.
 - **Key Financial Metrics**: Calculate XIRR (Extended Internal Rate of Return), payback period, total return, and yield metrics.
 - **Asset Buyout Calculations**: Determine residual asset values and buyout prices at different points in time.
 - **Visual Data Representation**: Interactive charts for cumulative cash flow, revenue breakdown, and asset buyout values.
@@ -64,7 +64,8 @@ The Solar Energy Financing Calculator is a comprehensive tool designed to help i
    - View summary metrics including XIRR, payback period, and yields
 
 5. **Explore Detailed Results**:
-   - Navigate through tabs to view monthly cash flows, asset buyout values, and charts
+   - Navigate through tabs to view monthly cash flows, annual cash flows, asset buyout values, and charts
+   - The annual cash flow tab provides a year-by-year summary of all financial metrics
    - Export data to CSV for further analysis
 
 6. **Save/Load Configurations**:

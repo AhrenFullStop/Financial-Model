@@ -247,6 +247,7 @@
                     <!-- Tabs for different views -->
                     <div class="tabs">
                         <button class="tab-btn active" data-tab="cash-flow">Monthly Cash Flow</button>
+                        <button class="tab-btn" data-tab="annual-cash-flow">Annual Cash Flow</button>
                         <button class="tab-btn" data-tab="buyout">Asset Buyout</button>
                         <button class="tab-btn" data-tab="charts">Charts</button>
                     </div>
@@ -265,6 +266,24 @@
                                         </tr>
                                     </thead>
                                     <tbody id="cash-flow-body">
+                                        <!-- Will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Annual Cash Flow Table -->
+                        <div class="tab-pane" id="annual-cash-flow-tab">
+                            <h3>Annual Cash Flow</h3>
+                            <div class="table-container">
+                                <table id="annual-cash-flow-table" class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Return Type</th>
+                                            <!-- Year headers will be populated by JavaScript -->
+                                        </tr>
+                                    </thead>
+                                    <tbody id="annual-cash-flow-body">
                                         <!-- Will be populated by JavaScript -->
                                     </tbody>
                                 </table>

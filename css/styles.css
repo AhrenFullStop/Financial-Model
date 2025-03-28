@@ -104,15 +104,25 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    min-width: 100%;
 }
 
-/* Input Section */
+/* Input Section on the left*/
 .input-section {
     background-color: white;
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
 }
+
+/* Output Section on the right*/
+.output-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
 
 /* Form Elements */
 fieldset {
@@ -191,14 +201,6 @@ input[type="number"] {
 .btn-secondary:hover {
     background-color: var(--dark-gray);
     color: white;
-}
-
-/* Output Section */
-.output-section {
-    background-color: white;
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
 }
 
 /* Summary Metrics */
@@ -355,30 +357,21 @@ canvas {
     }
 }
 
+
+/* Only for bigger displays */
 @media (min-width: 992px) {
     .calculator-container {
         flex-direction: row;
         align-items: flex-start;
     }
     
-    .input-section,
-    .output-section {
-        flex: 1;
-    }
-    
     .input-section {
+        flex: 0 0 20%; /* Don't grow, don't shrink, width is 20% */
         position: sticky;
         top: 20px;
     }
-}
-
-@media (max-width: 991px) {
-    .calculator-container {
-        flex-direction: column;
-    }
     
-    .input-section,
     .output-section {
-        width: 100%;
+        flex: 0 0 80%; /* Don't grow, don't shrink, width is 80% */
     }
 }

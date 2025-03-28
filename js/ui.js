@@ -211,41 +211,41 @@ const UI = {
         this.createProgressIndicators();
         
         // Get navigation buttons
-        const nextBtn = document.getElementById('next-btn');
-        const prevBtn = document.getElementById('prev-btn');
+        const nextArrow = document.getElementById('next-arrow');
+        const prevArrow = document.getElementById('prev-arrow');
         const calculateBtn = document.getElementById('calculate-btn');
         const resetBtn = document.getElementById('reset-btn');
         
         // Remove any existing event listeners (just in case)
-        if (nextBtn) {
-            nextBtn.replaceWith(nextBtn.cloneNode(true));
+        if (nextArrow) {
+            nextArrow.replaceWith(nextArrow.cloneNode(true));
         }
         
-        if (prevBtn) {
-            prevBtn.replaceWith(prevBtn.cloneNode(true));
+        if (prevArrow) {
+            prevArrow.replaceWith(prevArrow.cloneNode(true));
         }
         
         // Get fresh references after replacing
-        const newNextBtn = document.getElementById('next-btn');
-        const newPrevBtn = document.getElementById('prev-btn');
+        const newNextArrow = document.getElementById('next-arrow');
+        const newPrevArrow = document.getElementById('prev-arrow');
         
         // Add event listeners
-        if (newNextBtn) {
-            newNextBtn.onclick = () => {
-                console.log('Next button clicked');
+        if (newNextArrow) {
+            newNextArrow.onclick = () => {
+                console.log('Next arrow clicked');
                 this.nextFieldset();
             };
         } else {
-            console.error('Next button not found!');
+            console.error('Next arrow button not found!');
         }
         
-        if (newPrevBtn) {
-            newPrevBtn.onclick = () => {
-                console.log('Previous button clicked');
+        if (newPrevArrow) {
+            newPrevArrow.onclick = () => {
+                console.log('Previous arrow clicked');
                 this.prevFieldset();
             };
         } else {
-            console.error('Previous button not found!');
+            console.error('Previous arrow button not found!');
         }
         
         // Show first fieldset and update buttons
@@ -308,21 +308,11 @@ const UI = {
             step.classList.toggle('active', i === index);
         });
         
-        // Update button visibility
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const calculateBtn = document.getElementById('calculate-btn');
-        
-        if (prevBtn) {
-            prevBtn.style.display = index > 0 ? 'block' : 'none';
-            console.log(`Previous button visibility: ${index > 0 ? 'visible' : 'hidden'}`);
-        }
-        
-        if (nextBtn && calculateBtn) {
-            // Show "Next" on all but the last fieldset
-            nextBtn.style.display = index < fieldsets.length - 1 ? 'block' : 'none';
-            console.log(`Next button visibility: ${index < fieldsets.length - 1 ? 'visible' : 'hidden'}`);
-        }
+        // Arrow buttons are always visible, no need to update visibility
+        // Just log the current state for debugging
+        console.log(`Current fieldset: ${index}, Total fieldsets: ${fieldsets.length}`);
+        console.log(`Previous arrow should ${index > 0 ? 'be active' : 'be disabled'}`);
+        console.log(`Next arrow should ${index < fieldsets.length - 1 ? 'be active' : 'be disabled'}`);
     },
     
     /**

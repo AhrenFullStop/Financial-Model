@@ -20,15 +20,29 @@
             <div class="calculator-container">
                 <!-- Input Section -->
                 <section class="input-section">
-                    <div class="input-header">
-                        <h2 style="width: 100%;">Input Params</h2>
-                        <div class="import-export-buttons">
-                            <button type="button" id="import-btn" class="btn btn-small">📥</button>
-                            <button type="button" id="export-btn" class="btn btn-small">💾</button>
-                            <input type="file" id="import-file" accept=".json" style="display: none;">
-                        </div>
+                    <!-- Import/Export buttons at the top right -->
+                    <div class="import-export-buttons">
+                        <button type="button" id="import-btn" class="btn btn-small">📥</button>
+                        <button type="button" id="export-btn" class="btn btn-small">💾</button>
+                        <input type="file" id="import-file" accept=".json" style="display: none;">
                     </div>
+                    
                     <form id="calculator-form">
+                        
+                        <!-- Title and Calculate button on the same line -->
+                        <div class="input-header">
+                            <h2>Input Params</h2>
+                            <button type="submit" id="calculate-btn" class="btn btn-primary">Calculate</button>
+                        </div>
+                        
+                        <!-- Pagination controls below the header -->
+                        <div class="form-progress-container">
+                            <button type="button" id="prev-arrow" class="btn btn-arrow">◀</button>
+                            <div class="form-progress" id="form-progress">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                            <button type="button" id="next-arrow" class="btn btn-arrow">▶</button>
+                        </div>
                         <!-- System Information -->
                         <fieldset>
                             <legend>System Information</legend>
@@ -191,18 +205,9 @@
                             </div>
                         </fieldset>
                         
-                        <!-- Progress indicator -->
-                        <div class="form-progress" id="form-progress">
-                            <!-- Will be populated by JavaScript -->
-                        </div>
-                        
+                        <!-- Reset button at the bottom -->
                         <div class="form-actions">
                             <div class="pagination-controls">
-                                <button type="button" id="prev-btn" class="btn btn-secondary" style="display: none;" onclick="UI.prevFieldset()">Previous</button>
-                            </div>
-                            <div class="pagination-controls">
-                                <button type="button" id="next-btn" class="btn btn-primary" onclick="UI.nextFieldset()">Next</button>
-                                <button type="submit" id="calculate-btn" class="btn btn-primary">Calculate</button>
                                 <button type="reset" id="reset-btn" class="btn btn-secondary">Reset</button>
                             </div>
                         </div>
@@ -232,8 +237,8 @@
                             <div class="metric">
                                 <span class="metric-label">Annual Yield</span>
                                 <span class="metric-value" id="annual-yield-value">0.00%</span>
-                                <span class="metric-label small">Monthly Yield</span>
-                                <span class="metric-value small" id="monthly-yield-value">0.00%</span>
+                                <!-- <span class="metric-label-subtext">Monthly Yield</span>
+                                <span class="metric-value-subtext" id="monthly-yield-value">0.00%</span> -->
                             </div>
                             <div class="metric">
                                 <span class="metric-label">Return on Investment</span>
@@ -273,9 +278,6 @@
                                             <th>O&M Fee (R)</th>
                                             <th>Platform Fee (R)</th>
                                             <th>EBT (R)</th>
-                                            <th>Adjusted EBT (R)</th>
-                                            <th>Cumulative Return (R)</th>
-                                            <th>Cumulative Battery Capital Recovered (R)</th>
                                         </tr>
                                     </thead>
                                     <tbody id="cash-flow-body">
@@ -330,7 +332,7 @@
         </main>
         
         <footer>
-            <p>&copy; 2025 Solar Energy Financing Calculator</p>
+            <p>&copy; Momint Solar Energy Financing Calculator 2025</p>
         </footer>
     </div>
 

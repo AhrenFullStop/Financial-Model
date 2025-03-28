@@ -123,7 +123,7 @@ const Utils = {
         
         const years = Math.floor(months / 12);
         // const remainingMonths = (months % 12);
-        const remainingMonths = parseFloat((months % 12).toFixed(2));
+        const remainingMonths = Math.ceil((months % 12));
         
         let result = '';
         

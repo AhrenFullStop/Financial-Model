@@ -207,5 +207,61 @@ const Utils = {
     linearInterpolate: function(x0, y0, x1, y1, x) {
         if (x1 === x0) return y0;
         return y0 + (x - x0) * (y1 - y0) / (x1 - x0);
+    },
+    
+    /**
+     * Export input parameters to JSON file
+     * @param {string} formId - The ID of the form element
+     * @returns {string} JSON string of the form values
+     */
+    exportInputsToJSON: function(formId) {
+        const inputs = this.getFormValues(formId);
+        return JSON.stringify(inputs, null, 2);
+    },
+    
+    /**
+     * Validate imported JSON data
+     * @param {Object} data - The parsed JSON data
+     * @returns {Object} Object with isValid flag and errors array
+     */
+    validateImportedJSON: function(data) {
+        const errors = [];
+        
+        // Check if data is an object
+        if (!data || typeof data !== 'object') {
+            errors.push('Invalid JSON format');
+            return { isValid: false, errors };
+        }
+        
+        // Check for required fields (same as in Calculations.validateInputs)
+        const requiredFields = [
+            'capital-investment',
+            'solar-term',
+            'battery-term',
+            'installation-date',
+            'electricity-rate',
+            'rate-escalation',
+            'battery-lease-rate',
+            'battery-escalation',
+            'insurance-rate',
+            'maintenance-rate',
+            'landlord-discount',
+            'om-fee',
+            'platform-fee',
+            'energy-generated-p70',
+            'depreciation-rate',
+            'buyout-premium'
+        ];
+        
+        for (const field of requiredFields) {
+            if (data[field] === undefined || data[field] === null || data[field] === '') {
+                errors.push(`${field} is missing in the imported file`);
+            }
+        }
+        
+        return {
+            isValid: errors.length === 0,
+            errors: errors
+        };
     }
 };

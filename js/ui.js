@@ -19,6 +19,25 @@ const UI = {
         tabButtons.forEach(button => {
             button.addEventListener('click', this.handleTabClick.bind(this));
         });
+        
+        // Import/Export buttons
+        const importBtn = document.getElementById('import-btn');
+        const exportBtn = document.getElementById('export-btn');
+        const importFile = document.getElementById('import-file');
+        
+        if (importBtn) {
+            importBtn.addEventListener('click', () => {
+                importFile.click();
+            });
+        }
+        
+        if (exportBtn) {
+            exportBtn.addEventListener('click', this.handleExportInputs.bind(this));
+        }
+        
+        if (importFile) {
+            importFile.addEventListener('change', this.handleImportInputs.bind(this));
+        }
     },
     
     /**
@@ -180,5 +199,71 @@ const UI = {
                 }
             `;
         }
+    },
+    
+    /**
+     * Handle exporting inputs to JSON
+     */
+    handleExportInputs: function() {
+        // Get form values as JSON
+        const jsonData = Utils.exportInputsToJSON('calculator-form');
+        
+        // Create a blob and download link
+        const blob = new Blob([jsonData], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        // Create download link
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'solar_calculator_inputs.json';
+        link.style.display = 'none';
+        
+        // Add to document, click, and remove
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    },
+    
+    /**
+     * Handle importing inputs from JSON
+     * @param {Event} event - File input change event
+     */
+    handleImportInputs: function(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        
+        reader.onload = (e) => {
+            try {
+                // Parse JSON data
+                const data = JSON.parse(e.target.result);
+                
+                // Validate imported data
+                const validation = Utils.validateImportedJSON(data);
+                
+                if (!validation.isValid) {
+                    this.showValidationErrors(validation.errors);
+                    return;
+                }
+                
+                // Clear any previous validation errors
+                this.clearValidationErrors();
+                
+                // Set form values
+                Utils.setFormValues('calculator-form', data);
+                
+                // Trigger calculation
+                document.getElementById('calculate-btn').click();
+                
+            } catch (error) {
+                this.showValidationErrors(['Invalid JSON file format: ' + error.message]);
+            }
+        };
+        
+        reader.readAsText(file);
+        
+        // Reset the file input so the same file can be selected again
+        event.target.value = '';
     }
 };

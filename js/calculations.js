@@ -11,7 +11,9 @@ const Calculations = {
      */
     calculateCashFlows: function(inputs) {
         // Extract input parameters
-        const capitalInvestment = inputs['capital-investment'];
+        const solarCost = inputs['solar-cost'];
+        const batteryCost = inputs['battery-cost'];
+        const capitalInvestment = solarCost + batteryCost;
         const solarTerm = parseInt(inputs['solar-term']);
         const batteryTerm = parseInt(inputs['battery-term']);
         const installationDate = Utils.parseYearMonth(inputs['installation-date']);
@@ -33,7 +35,7 @@ const Calculations = {
         const cashFlows = [];
         
         // Calculate monthly battery lease amount
-        const monthlyBatteryLease = (capitalInvestment * batteryLeaseRate) / 12;
+        const monthlyBatteryLease = (batteryCost * batteryLeaseRate) / 12;
         
         // Calculate monthly insurance and maintenance costs
         const monthlyInsurance = (capitalInvestment * insuranceRate) / 12;
@@ -240,7 +242,8 @@ const Calculations = {
         
         // Check for required fields
         const requiredFields = [
-            'capital-investment',
+            'solar-cost',
+            'battery-cost',
             'solar-term',
             'battery-term',
             'installation-date',
@@ -266,7 +269,8 @@ const Calculations = {
         
         // Check for positive values
         const positiveFields = [
-            'capital-investment',
+            'solar-cost',
+            'battery-cost',
             'electricity-rate',
             'energy-generated-p70'
         ];

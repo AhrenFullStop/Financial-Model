@@ -233,9 +233,23 @@ const Utils = {
             return { isValid: false, errors };
         }
         
+        // Handle backward compatibility for older files with only capital-investment
+        if (data['capital-investment'] !== undefined &&
+            (data['solar-cost'] === undefined || data['battery-cost'] === undefined)) {
+            
+            // Split the capital investment 75/25 between solar and battery as a default
+            const totalCapital = parseFloat(data['capital-investment']);
+            if (!isNaN(totalCapital)) {
+                data['solar-cost'] = Math.round(totalCapital * 0.25);
+                data['battery-cost'] = Math.round(totalCapital * 0.75);
+                console.log('Converted legacy format: Split capital investment between solar and battery');
+            }
+        }
+        
         // Check for required fields (same as in Calculations.validateInputs)
         const requiredFields = [
-            'capital-investment',
+            'solar-cost',
+            'battery-cost',
             'solar-term',
             'battery-term',
             'installation-date',

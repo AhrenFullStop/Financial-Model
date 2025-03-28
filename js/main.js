@@ -57,7 +57,8 @@ function loadScenario(scenarioName) {
     // Define scenarios
     const scenarios = {
         'default': {
-            'capital-investment': 2138521,
+            'solar-cost': 1638521,
+            'battery-cost': 500000,
             'pv-size': 87.2,
             'battery-size': 120,
             'energy-consumption': 15098,
@@ -81,7 +82,8 @@ function loadScenario(scenarioName) {
             'buyout-premium': 20
         },
         'small': {
-            'capital-investment': 1000000,
+            'solar-cost': 750000,
+            'battery-cost': 250000,
             'pv-size': 40,
             'battery-size': 60,
             'energy-consumption': 8000,
@@ -105,7 +107,8 @@ function loadScenario(scenarioName) {
             'buyout-premium': 20
         },
         'large': {
-            'capital-investment': 3500000,
+            'solar-cost': 2500000,
+            'battery-cost': 1000000,
             'pv-size': 150,
             'battery-size': 200,
             'energy-consumption': 25000,
@@ -135,6 +138,17 @@ function loadScenario(scenarioName) {
     
     // Set form values
     Utils.setFormValues('calculator-form', scenario);
+    
+    // Trigger total capital investment calculation
+    const solarCostInput = document.getElementById('solar-cost');
+    const batteryCostInput = document.getElementById('battery-cost');
+    const capitalInvestmentInput = document.getElementById('capital-investment');
+    
+    if (solarCostInput && batteryCostInput && capitalInvestmentInput) {
+        const solarCost = parseFloat(solarCostInput.value) || 0;
+        const batteryCost = parseFloat(batteryCostInput.value) || 0;
+        capitalInvestmentInput.value = solarCost + batteryCost;
+    }
     
     // Optionally trigger calculation
     // document.getElementById('calculate-btn').click();

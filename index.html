@@ -34,8 +34,19 @@
                             <legend>System Information</legend>
                             
                             <div class="form-group">
+                                <label for="solar-cost">Solar Asset Cost (R)</label>
+                                <input type="number" id="solar-cost" name="solar-cost" min="0" step="1" value="1638521" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="battery-cost">Battery Cost (R)</label>
+                                <input type="number" id="battery-cost" name="battery-cost" min="0" step="1" value="500000" required>
+                            </div>
+                            
+                            <div class="form-group">
                                 <label for="capital-investment">Total Capital Investment (R)</label>
-                                <input type="number" id="capital-investment" name="capital-investment" min="0" step="1" value="2138521" required>
+                                <input type="number" id="capital-investment" name="capital-investment" min="0" step="1" value="2138521" readonly>
+                                <small>Automatically calculated as Solar Asset Cost + Battery Cost</small>
                             </div>
                             
                             <div class="form-group">

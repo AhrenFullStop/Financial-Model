@@ -38,6 +38,24 @@ const UI = {
         if (importFile) {
             importFile.addEventListener('change', this.handleImportInputs.bind(this));
         }
+        
+        // Auto-calculate total capital investment
+        const solarCostInput = document.getElementById('solar-cost');
+        const batteryCostInput = document.getElementById('battery-cost');
+        const capitalInvestmentInput = document.getElementById('capital-investment');
+        
+        const updateTotalCapital = () => {
+            const solarCost = parseFloat(solarCostInput.value) || 0;
+            const batteryCost = parseFloat(batteryCostInput.value) || 0;
+            capitalInvestmentInput.value = solarCost + batteryCost;
+        };
+        
+        if (solarCostInput && batteryCostInput) {
+            solarCostInput.addEventListener('input', updateTotalCapital);
+            batteryCostInput.addEventListener('input', updateTotalCapital);
+            // Initialize total
+            updateTotalCapital();
+        }
     },
     
     /**
@@ -252,6 +270,17 @@ const UI = {
                 
                 // Set form values
                 Utils.setFormValues('calculator-form', data);
+                
+                // Update total capital investment
+                const solarCostInput = document.getElementById('solar-cost');
+                const batteryCostInput = document.getElementById('battery-cost');
+                const capitalInvestmentInput = document.getElementById('capital-investment');
+                
+                if (solarCostInput && batteryCostInput && capitalInvestmentInput) {
+                    const solarCost = parseFloat(solarCostInput.value) || 0;
+                    const batteryCost = parseFloat(batteryCostInput.value) || 0;
+                    capitalInvestmentInput.value = solarCost + batteryCost;
+                }
                 
                 // Trigger calculation
                 document.getElementById('calculate-btn').click();

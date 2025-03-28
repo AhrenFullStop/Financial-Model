@@ -349,9 +349,10 @@ fieldset:not(:first-of-type) {
 }
 
 .metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
+    justify-content: flex-start;
 }
 
 .metric {
@@ -361,6 +362,8 @@ fieldset:not(:first-of-type) {
     background-color: white;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
+    width: max-content;
+    min-width: 200px;
 }
 
 .metric-label {

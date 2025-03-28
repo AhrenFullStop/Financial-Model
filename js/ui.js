@@ -282,8 +282,8 @@ const UI = {
                     capitalInvestmentInput.value = solarCost + batteryCost;
                 }
                 
-                // Trigger calculation
-                document.getElementById('calculate-btn').click();
+                // // Trigger calculation
+                // document.getElementById('calculate-btn').click();
                 
             } catch (error) {
                 this.showValidationErrors(['Invalid JSON file format: ' + error.message]);

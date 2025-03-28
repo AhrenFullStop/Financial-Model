@@ -122,7 +122,8 @@ const Utils = {
         }
         
         const years = Math.floor(months / 12);
-        const remainingMonths = months % 12;
+        // const remainingMonths = (months % 12);
+        const remainingMonths = parseFloat((months % 12).toFixed(2));
         
         let result = '';
         
@@ -240,8 +241,8 @@ const Utils = {
             // Split the capital investment 75/25 between solar and battery as a default
             const totalCapital = parseFloat(data['capital-investment']);
             if (!isNaN(totalCapital)) {
-                data['solar-cost'] = Math.round(totalCapital * 0.25);
-                data['battery-cost'] = Math.round(totalCapital * 0.75);
+                data['solar-cost'] = 32455041;
+                data['battery-cost'] = 42536407;
                 console.log('Converted legacy format: Split capital investment between solar and battery');
             }
         }

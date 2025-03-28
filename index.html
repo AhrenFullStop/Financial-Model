@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <!-- Chart.js for visualizations -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -26,15 +28,15 @@
                         <button type="button" id="export-btn" class="btn btn-small">💾</button>
                         <input type="file" id="import-file" accept=".json" style="display: none;">
                     </div>
-                    
+
                     <form id="calculator-form">
-                        
+
                         <!-- Title and Calculate button on the same line -->
                         <div class="input-header">
                             <h2>Input Params</h2>
                             <button type="submit" id="calculate-btn" class="btn btn-primary">Calculate</button>
                         </div>
-                        
+
                         <!-- Pagination controls below the header -->
                         <div class="form-progress-container">
                             <button type="button" id="prev-arrow" class="btn btn-arrow">◀</button>
@@ -46,38 +48,44 @@
                         <!-- System Information -->
                         <fieldset>
                             <legend>System Information</legend>
-                            
+
                             <div class="form-group">
                                 <label for="solar-cost">Solar Asset Cost (R)</label>
-                                <input type="number" id="solar-cost" name="solar-cost" min="0" step="1" value="32455041" required>
+                                <input type="number" id="solar-cost" name="solar-cost" min="0" step="1" value="32455041"
+                                    required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="battery-cost">Battery Cost (R)</label>
-                                <input type="number" id="battery-cost" name="battery-cost" min="0" step="1" value="42536407" required>
+                                <input type="number" id="battery-cost" name="battery-cost" min="0" step="1"
+                                    value="42536407" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="capital-investment">Total Capital Investment (R)</label>
-                                <input type="number" id="capital-investment" name="capital-investment" min="0" step="1" value="74991448" readonly>
+                                <input type="number" id="capital-investment" name="capital-investment" min="0" step="1"
+                                    value="74991448" readonly>
                                 <small>Automatically calculated as Solar Asset Cost + Battery Cost</small>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="pv-size">PV System Size (kWp)</label>
-                                <input type="number" id="pv-size" name="pv-size" min="0" step="0.1" value="2988" required>
+                                <input type="number" id="pv-size" name="pv-size" min="0" step="0.1" value="2988"
+                                    required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="battery-size">Battery Size (kWh)</label>
-                                <input type="number" id="battery-size" name="battery-size" min="0" step="0.1" value="10032" required>
+                                <input type="number" id="battery-size" name="battery-size" min="0" step="0.1"
+                                    value="10032" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="energy-consumption">Average Energy Consumption per Month (kWh)</label>
-                                <input type="number" id="energy-consumption" name="energy-consumption" min="0" step="1" value="12979" required>
+                                <input type="number" id="energy-consumption" name="energy-consumption" min="0" step="1"
+                                    value="12979" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="solar-term">Solar Asset Term (Years)</label>
                                 <select id="solar-term" name="solar-term" required>
@@ -87,7 +95,7 @@
                                     <option value="20" selected>20 Years</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="battery-term">Battery Term (Years)</label>
                                 <select id="battery-term" name="battery-term" required>
@@ -98,108 +106,123 @@
                                     <option value="20">20 Years</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="installation-date">Installation Date</label>
-                                <input type="month" id="installation-date" name="installation-date" value="2025-07" required>
+                                <input type="month" id="installation-date" name="installation-date" value="2025-07"
+                                    required>
                             </div>
                         </fieldset>
-                        
+
                         <!-- Financial Parameters -->
                         <fieldset>
                             <legend>Financial Parameters</legend>
-                            
+
                             <div class="form-group">
                                 <label for="exchange-rate">USD/ZAR Exchange Rate</label>
-                                <input type="number" id="exchange-rate" name="exchange-rate" min="0" step="0.01" value="18.15" required>
+                                <input type="number" id="exchange-rate" name="exchange-rate" min="0" step="0.01"
+                                    value="18.15" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="sun-hours">Effective Sun Hours per Day</label>
-                                <input type="number" id="sun-hours" name="sun-hours" min="0" step="0.1" value="4.9" required>
+                                <input type="number" id="sun-hours" name="sun-hours" min="0" step="0.1" value="4.9"
+                                    required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="energy-generated">Energy Generated per Month (kWh)</label>
-                                <input type="number" id="energy-generated" name="energy-generated" min="0" step="1" value="429645" required>
+                                <input type="number" id="energy-generated" name="energy-generated" min="0" step="1"
+                                    value="429645" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="energy-generated-p70">Energy Generated per Month (P70) (kWh)</label>
-                                <input type="number" id="energy-generated-p70" name="energy-generated-p70" min="0" step="1" value="300751" required>
+                                <input type="number" id="energy-generated-p70" name="energy-generated-p70" min="0"
+                                    step="1" value="300751" required>
                             </div>
                         </fieldset>
-                        
+
                         <!-- Revenue Drivers -->
                         <fieldset>
                             <legend>Revenue Drivers</legend>
-                            
+
                             <div class="form-group">
                                 <label for="electricity-rate">Electricity Purchase Rate (R/kWh)</label>
-                                <input type="number" id="electricity-rate" name="electricity-rate" min="0" step="0.01" value="1.85" required>
+                                <input type="number" id="electricity-rate" name="electricity-rate" min="0" step="0.01"
+                                    value="1.85" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="rate-escalation">Purchase Rate Escalation (% per annum)</label>
-                                <input type="number" id="rate-escalation" name="rate-escalation" min="0" step="0.1" value="10" required>
+                                <input type="number" id="rate-escalation" name="rate-escalation" min="0" step="0.1"
+                                    value="10" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="battery-lease-rate">Battery Lease Rate (% of capital)</label>
-                                <input type="number" id="battery-lease-rate" name="battery-lease-rate" min="0" step="0.1" value="20" required>
+                                <input type="number" id="battery-lease-rate" name="battery-lease-rate" min="0"
+                                    step="0.1" value="20" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="battery-escalation">Battery Lease Escalation (% per annum)</label>
-                                <input type="number" id="battery-escalation" name="battery-escalation" min="0" step="0.1" value="0" required>
+                                <input type="number" id="battery-escalation" name="battery-escalation" min="0"
+                                    step="0.1" value="0" required>
                             </div>
                         </fieldset>
-                        
+
                         <!-- Project Fees -->
                         <fieldset>
                             <legend>Project Fees</legend>
-                            
+
                             <div class="form-group">
                                 <label for="insurance-rate">Insurance (% of capital per annum)</label>
-                                <input type="number" id="insurance-rate" name="insurance-rate" min="0" step="0.01" value="0.4" required>
+                                <input type="number" id="insurance-rate" name="insurance-rate" min="0" step="0.01"
+                                    value="0.4" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="landlord-discount">Landlord Discount (% of total revenue)</label>
-                                <input type="number" id="landlord-discount" name="landlord-discount" min="0" step="0.1" value="0" required>
+                                <input type="number" id="landlord-discount" name="landlord-discount" min="0" step="0.1"
+                                    value="0" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="om-fee">O&M Asset Management Fee (% of total revenue)</label>
                                 <input type="number" id="om-fee" name="om-fee" min="0" step="0.01" value="1.5" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="platform-fee">Platform Fee (% of total revenue)</label>
-                                <input type="number" id="platform-fee" name="platform-fee" min="0" step="0.01" value="0" required>
+                                <input type="number" id="platform-fee" name="platform-fee" min="0" step="0.01" value="0"
+                                    required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="target-returns">Target Investor Returns (%)</label>
-                                <input type="number" id="target-returns" name="target-returns" min="0" step="0.1" value="15" required>
+                                <input type="number" id="target-returns" name="target-returns" min="0" step="0.1"
+                                    value="15" required>
                             </div>
                         </fieldset>
-                        
+
                         <!-- Asset Buyout Parameters -->
                         <fieldset>
                             <legend>Asset Buyout Parameters</legend>
-                            
+
                             <div class="form-group">
                                 <label for="depreciation-rate">Depreciation Rate (% per annum)</label>
-                                <input type="number" id="depreciation-rate" name="depreciation-rate" min="0" step="0.1" value="8" required>
+                                <input type="number" id="depreciation-rate" name="depreciation-rate" min="0" step="0.1"
+                                    value="8" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="buyout-premium">Buyout Premium (%)</label>
-                                <input type="number" id="buyout-premium" name="buyout-premium" min="0" step="0.1" value="20" required>
+                                <input type="number" id="buyout-premium" name="buyout-premium" min="0" step="0.1"
+                                    value="20" required>
                             </div>
                         </fieldset>
-                        
+
                         <!-- Reset button at the bottom -->
                         <div class="form-actions">
                             <div class="pagination-controls">
@@ -208,11 +231,11 @@
                         </div>
                     </form>
                 </section>
-                
+
                 <!-- Output Section (initially hidden) -->
-                <section class="output-section" id="output-section" style="display: none;">
+                <section class="output-section" id="output-section">
                     <h2>Results</h2>
-                    
+
                     <!-- Summary Metrics -->
                     <div class="summary-metrics">
                         <h3>Summary Metrics</h3>
@@ -243,35 +266,36 @@
                             </div>  -->
                         </div>
                     </div>
-                    
+
                     <!-- Tabs for different views -->
                     <div class="tabs">
-                        <button class="tab-btn active" data-tab="cash-flow">Monthly Cash Flow</button>
+                        <button class="tab-btn active" data-tab="charts">Charts</button>
                         <button class="tab-btn" data-tab="annual-cash-flow">Annual Cash Flow</button>
+                        <button class="tab-btn" data-tab="cash-flow">Monthly Cash Flow</button>
                         <button class="tab-btn" data-tab="buyout">Asset Buyout</button>
-                        <button class="tab-btn" data-tab="charts">Charts</button>
                     </div>
-                    
+
                     <!-- Tab Content -->
                     <div class="tab-content">
-                        <!-- Monthly Cash Flow Table -->
-                        <div class="tab-pane active" id="cash-flow-tab">
-                            <h3>Monthly Cash Flow</h3>
-                            <div class="table-container">
-                                <table id="cash-flow-table" class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Return Type</th>
-                                            <!-- Month/Date headers will be populated by JavaScript -->
-                                        </tr>
-                                    </thead>
-                                    <tbody id="cash-flow-body">
-                                        <!-- Will be populated by JavaScript -->
-                                    </tbody>
-                                </table>
+                        <!-- Charts -->
+                        <div class="tab-pane active" id="charts-tab">
+                            <h3>Visualizations</h3>
+                            <div class="charts-container">
+                                <div class="chart-wrapper">
+                                    <h4>Cumulative Cash Flow</h4>
+                                    <canvas id="cumulative-chart"></canvas>
+                                </div>
+                                <div class="chart-wrapper">
+                                    <h4>Monthly Revenue Breakdown</h4>
+                                    <canvas id="revenue-chart"></canvas>
+                                </div>
+                                <div class="chart-wrapper">
+                                    <h4>Asset Buyout Value Over Time</h4>
+                                    <canvas id="buyout-chart"></canvas>
+                                </div>
                             </div>
                         </div>
-                        
+
                         <!-- Annual Cash Flow Table -->
                         <div class="tab-pane" id="annual-cash-flow-tab">
                             <h3>Annual Cash Flow</h3>
@@ -289,7 +313,25 @@
                                 </table>
                             </div>
                         </div>
-                        
+
+                        <!-- Monthly Cash Flow Table -->
+                        <div class="tab-pane" id="cash-flow-tab">
+                            <h3>Monthly Cash Flow</h3>
+                            <div class="table-container">
+                                <table id="cash-flow-table" class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Return Type</th>
+                                            <!-- Month/Date headers will be populated by JavaScript -->
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cash-flow-body">
+                                        <!-- Will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                         <!-- Asset Buyout Table -->
                         <div class="tab-pane" id="buyout-tab">
                             <h3>Asset Buyout Values</h3>
@@ -310,30 +352,12 @@
                                 </table>
                             </div>
                         </div>
-                        
-                        <!-- Charts -->
-                        <div class="tab-pane" id="charts-tab">
-                            <h3>Visualizations</h3>
-                            <div class="charts-container">
-                                <div class="chart-wrapper">
-                                    <h4>Cumulative Cash Flow</h4>
-                                    <canvas id="cumulative-chart"></canvas>
-                                </div>
-                                <div class="chart-wrapper">
-                                    <h4>Monthly Revenue Breakdown</h4>
-                                    <canvas id="revenue-chart"></canvas>
-                                </div>
-                                <div class="chart-wrapper">
-                                    <h4>Asset Buyout Value Over Time</h4>
-                                    <canvas id="buyout-chart"></canvas>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </section>
             </div>
         </main>
-        
+
         <footer>
             <p>&copy; Momint Solar Energy Financing Calculator 2025</p>
         </footer>
@@ -348,4 +372,5 @@
     <script src="js/ui.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,384 @@
+/* 
+ * Solar Energy Financing Calculator
+ * Main Stylesheet
+ */
+
+/* Base Styles */
+:root {
+    --primary-color: #2c7da0;
+    --primary-dark: #1a5e7a;
+    --primary-light: #a9d6e5;
+    --secondary-color: #61a5c2;
+    --accent-color: #e76f51;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --medium-gray: #e0e0e0;
+    --dark-gray: #666;
+    --success-color: #2a9d8f;
+    --warning-color: #e9c46a;
+    --error-color: #e63946;
+    --border-radius: 4px;
+    --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #f9f9f9;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    color: var(--primary-dark);
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+h4 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+/* Header & Footer */
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+    background-color: var(--light-gray);
+    border-radius: var(--border-radius);
+}
+
+header p {
+    color: var(--dark-gray);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem 0;
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--medium-gray);
+}
+
+/* Calculator Container */
+.calculator-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Input Section */
+.input-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* Form Elements */
+fieldset {
+    border: 1px solid var(--medium-gray);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+legend {
+    font-weight: bold;
+    color: var(--primary-color);
+    padding: 0 0.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--medium-gray);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(44, 125, 160, 0.2);
+}
+
+input[type="number"] {
+    text-align: right;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: var(--medium-gray);
+    color: var(--text-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--dark-gray);
+    color: white;
+}
+
+/* Output Section */
+.output-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* Summary Metrics */
+.summary-metrics {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: var(--light-gray);
+    border-radius: var(--border-radius);
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.metric {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+    margin-bottom: 0.5rem;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    border-bottom: 1px solid var(--medium-gray);
+    margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--dark-gray);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.tab-btn:hover {
+    color: var(--primary-color);
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Tables */
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.data-table th,
+.data-table td {
+    padding: 0.75rem;
+    text-align: right;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.data-table th {
+    background-color: var(--light-gray);
+    font-weight: 600;
+    color: var(--primary-dark);
+    position: sticky;
+    top: 0;
+}
+
+.data-table th:first-child,
+.data-table td:first-child,
+.data-table th:nth-child(2),
+.data-table td:nth-child(2) {
+    text-align: left;
+    position: sticky;
+    left: 0;
+    background-color: white;
+    z-index: 1;
+}
+
+.data-table th:first-child,
+.data-table th:nth-child(2) {
+    background-color: var(--light-gray);
+    z-index: 2;
+}
+
+.data-table tr:hover {
+    background-color: rgba(169, 214, 229, 0.1);
+}
+
+/* Charts */
+.charts-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.chart-wrapper {
+    background-color: white;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.chart-wrapper h4 {
+    text-align: center;
+    margin-top: 0;
+}
+
+canvas {
+    width: 100% !important;
+    height: 300px !important;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .charts-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .chart-wrapper:first-child {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (min-width: 992px) {
+    .calculator-container {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    
+    .input-section,
+    .output-section {
+        flex: 1;
+    }
+    
+    .input-section {
+        position: sticky;
+        top: 20px;
+    }
+}
+
+@media (max-width: 991px) {
+    .calculator-container {
+        flex-direction: column;
+    }
+    
+    .input-section,
+    .output-section {
+        width: 100%;
+    }
+}

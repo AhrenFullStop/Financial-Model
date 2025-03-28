@@ -34,6 +34,7 @@ const Tables = {
                 <td>${Utils.formatCurrency(cf.omFee)}</td>
                 <td>${Utils.formatCurrency(cf.platformFee)}</td>
                 <td>${Utils.formatCurrency(cf.ebt)}</td>
+                <td>${Utils.formatCurrency(cf.adjustedEbt)}</td>
                 <td>${Utils.formatCurrency(cf.cumulativeReturn)}</td>
             `;
             
@@ -109,6 +110,24 @@ const Tables = {
         if (monthlyYieldElement) {
             monthlyYieldElement.textContent = Utils.formatPercentage(summary.monthlyYield);
         }
+        
+        // Update effective investment
+        const effectiveInvestmentElement = document.getElementById('effective-investment-value');
+        if (effectiveInvestmentElement) {
+            effectiveInvestmentElement.textContent = Utils.formatCurrency(summary.effectiveInvestment);
+        }
+        
+        // Update capital recovered
+        const capitalRecoveredElement = document.getElementById('capital-recovered-value');
+        if (capitalRecoveredElement) {
+            capitalRecoveredElement.textContent = Utils.formatCurrency(summary.capitalRecovered);
+        }
+        
+        // Update return on investment
+        const roiElement = document.getElementById('roi-value');
+        if (roiElement) {
+            roiElement.textContent = Utils.formatCurrency(summary.returnOnInvestment);
+        }
     },
     
     /**
@@ -123,6 +142,8 @@ const Tables = {
             'Date',
             'Solar Revenue (R)',
             'Battery Revenue (R)',
+            'Battery Capital Recovery (R)',
+            'Battery Return on Investment (R)',
             'Total Revenue (R)',
             'Insurance (R)',
             'Maintenance (R)',
@@ -132,7 +153,9 @@ const Tables = {
             'O&M Fee (R)',
             'Platform Fee (R)',
             'EBT (R)',
-            'Cumulative Return (R)'
+            'Adjusted EBT (R)',
+            'Cumulative Return (R)',
+            'Cumulative Battery Capital Recovered (R)'
         ];
         
         // Create CSV content
@@ -154,7 +177,8 @@ const Tables = {
                 cf.omFee,
                 cf.platformFee,
                 cf.ebt,
-                cf.cumulativeReturn
+                cf.adjustedEbt,
+                cf.cumulativeReturn,
             ];
             
             csvContent += row.join(',') + '\n';

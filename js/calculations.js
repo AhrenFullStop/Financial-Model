@@ -41,8 +41,13 @@ const Calculations = {
         const monthlyInsurance = (capitalInvestment * insuranceRate) / 12;
         const monthlyMaintenance = (capitalInvestment * maintenanceRate) / 12;
         
+        // Calculate the monthly battery capital recovery
+        // If battery lease rate is 20% annually, we recover 1.67% of the battery cost per month
+        const monthlyBatteryCapitalRecovery = (batteryCost / (batteryTerm * 12));
+        
         // Initialize cumulative values
         let cumulativeReturn = -capitalInvestment; // Initial investment is negative cash flow
+        let cumulativeBatteryCapitalRecovered = 0; // Track how much battery capital has been recovered
         
         // Calculate cash flows for each month
         for (let month = 0; month < contractTerm; month++) {
@@ -56,20 +61,30 @@ const Calculations = {
             const escalatedElectricityRate = electricityRate * Math.pow(1 + rateEscalation, year);
             
             // Apply annual escalation to battery lease (if applicable)
-            const escalatedBatteryLease = month < batteryTerm * 12 
+            const escalatedBatteryLease = month < batteryTerm * 12
                 ? monthlyBatteryLease * Math.pow(1 + batteryEscalation, year)
                 : 0;
+            
+            // Split battery lease into capital recovery and return on investment
+            // Only apply during battery term
+            const batteryCapitalRecovery = month < batteryTerm * 12 ? monthlyBatteryCapitalRecovery : 0;
+            const batteryReturnOnInvestment = escalatedBatteryLease - batteryCapitalRecovery;
+            
+            // Update cumulative battery capital recovered
+            cumulativeBatteryCapitalRecovered += batteryCapitalRecovery;
+            // Cap the recovery at the battery cost
+            cumulativeBatteryCapitalRecovered = Math.min(cumulativeBatteryCapitalRecovered, batteryCost);
             
             // Calculate solar revenue (accounting for panel degradation)
             // Assume 0.7% annual degradation rate
             const degradationFactor = Math.pow(1 - 0.007, year);
             const adjustedEnergyGenerated = energyGenerated * degradationFactor;
-            const solarRevenue = month < solarTerm * 12 
+            const solarRevenue = month < solarTerm * 12
                 ? adjustedEnergyGenerated * escalatedElectricityRate
                 : 0;
             
-            // Calculate total revenue
-            const totalRevenue = solarRevenue + escalatedBatteryLease;
+            // Calculate total revenue (excluding capital recovery portion)
+            const totalRevenue = solarRevenue + batteryReturnOnInvestment;
             
             // Calculate landlord roof rental
             const landlordRoofRental = totalRevenue * landlordDiscount;
@@ -87,8 +102,11 @@ const Calculations = {
             // Calculate EBT (Earnings Before Tax)
             const ebt = grossCashFlow - omAssetManagementFee - momintPlatformFee;
             
-            // Update cumulative return
-            cumulativeReturn += ebt;
+            // Calculate adjusted EBT including capital recovery
+            const adjustedEbt = ebt + batteryCapitalRecovery;
+            
+            // Update cumulative return (using adjusted EBT)
+            cumulativeReturn += adjustedEbt;
             
             // Store the cash flow for this month
             cashFlows.push({
@@ -96,23 +114,30 @@ const Calculations = {
                 date: date,
                 solarRevenue: solarRevenue,
                 batteryRevenue: escalatedBatteryLease,
-                totalRevenue: totalRevenue,
+                batteryCapitalRecovery: batteryCapitalRecovery,
+                batteryReturnOnInvestment: batteryReturnOnInvestment,
+                totalRevenue: totalRevenue + batteryCapitalRecovery, // Include capital recovery for display
                 insurance: monthlyInsurance,
                 maintenance: monthlyMaintenance,
                 landlordRoofRental: landlordRoofRental,
                 totalFees: totalFees,
-                grossCashFlow: grossCashFlow,
+                grossCashFlow: grossCashFlow + batteryCapitalRecovery, // Include capital recovery
                 omFee: omAssetManagementFee,
                 platformFee: momintPlatformFee,
                 ebt: ebt,
-                cumulativeReturn: cumulativeReturn
+                adjustedEbt: adjustedEbt,
+                cumulativeReturn: cumulativeReturn,
+                cumulativeBatteryCapitalRecovered: cumulativeBatteryCapitalRecovered
             });
         }
         
+        // Calculate effective investment (total investment minus recovered battery capital)
+        const effectiveInvestment = capitalInvestment - cumulativeBatteryCapitalRecovered;
+        
         // Calculate summary metrics
-        const xirr = this.calculateXIRR(cashFlows, capitalInvestment);
-        const paybackPeriod = this.calculatePaybackPeriod(cashFlows, capitalInvestment);
-        const totalReturn = cashFlows[cashFlows.length - 1].cumulativeReturn + capitalInvestment;
+        const xirr = this.calculateXIRR(cashFlows, effectiveInvestment);
+        const paybackPeriod = this.calculatePaybackPeriod(cashFlows, effectiveInvestment);
+        const totalReturn = cashFlows[cashFlows.length - 1].cumulativeReturn + effectiveInvestment;
         
         // Calculate annual and monthly yields
         const firstYearGrossCashFlow = cashFlows.slice(0, 12).reduce((sum, cf) => sum + cf.grossCashFlow, 0);
@@ -135,7 +160,10 @@ const Calculations = {
                 totalReturn: totalReturn,
                 annualYield: annualYield,
                 monthlyYield: monthlyYield,
-                capitalInvestment: capitalInvestment
+                capitalInvestment: capitalInvestment,
+                effectiveInvestment: effectiveInvestment,
+                capitalRecovered: cumulativeBatteryCapitalRecovered,
+                returnOnInvestment: totalReturn - cumulativeBatteryCapitalRecovered
             },
             buyoutValues: buyoutValues
         };
@@ -144,22 +172,22 @@ const Calculations = {
     /**
      * Calculate XIRR (Extended Internal Rate of Return)
      * @param {Array} cashFlows - Array of cash flow objects
-     * @param {number} initialInvestment - Initial investment amount
+     * @param {number} effectiveInvestment - Effective investment amount (adjusted for capital recovery)
      * @returns {number} XIRR value
      */
-    calculateXIRR: function(cashFlows, initialInvestment) {
+    calculateXIRR: function(cashFlows, effectiveInvestment) {
         // Create array of cash flows for XIRR calculation
         const xirrCashFlows = [
             {
-                amount: -initialInvestment,
+                amount: -effectiveInvestment,
                 date: cashFlows[0].date
             }
         ];
         
-        // Add monthly cash flows
+        // Add monthly cash flows using adjusted EBT (which includes capital recovery)
         cashFlows.forEach(cf => {
             xirrCashFlows.push({
-                amount: cf.ebt,
+                amount: cf.adjustedEbt,
                 date: cf.date
             });
         });
@@ -171,10 +199,10 @@ const Calculations = {
     /**
      * Calculate payback period
      * @param {Array} cashFlows - Array of cash flow objects
-     * @param {number} initialInvestment - Initial investment amount
+     * @param {number} effectiveInvestment - Effective investment amount (adjusted for capital recovery)
      * @returns {number} Payback period in months
      */
-    calculatePaybackPeriod: function(cashFlows, initialInvestment) {
+    calculatePaybackPeriod: function(cashFlows, effectiveInvestment) {
         // Find the month where cumulative return becomes positive
         for (let i = 0; i < cashFlows.length; i++) {
             if (cashFlows[i].cumulativeReturn >= 0) {

@@ -191,9 +191,20 @@
                             </div>
                         </fieldset>
                         
+                        <!-- Progress indicator -->
+                        <div class="form-progress" id="form-progress">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                        
                         <div class="form-actions">
-                            <button type="submit" id="calculate-btn" class="btn btn-primary">Calculate</button>
-                            <button type="reset" class="btn btn-secondary">Reset</button>
+                            <div class="pagination-controls">
+                                <button type="button" id="prev-btn" class="btn btn-secondary" style="display: none;" onclick="UI.prevFieldset()">Previous</button>
+                            </div>
+                            <div class="pagination-controls">
+                                <button type="button" id="next-btn" class="btn btn-primary" onclick="UI.nextFieldset()">Next</button>
+                                <button type="submit" id="calculate-btn" class="btn btn-primary">Calculate</button>
+                                <button type="reset" id="reset-btn" class="btn btn-secondary">Reset</button>
+                            </div>
                         </div>
                     </form>
                 </section>
@@ -221,11 +232,13 @@
                             <div class="metric">
                                 <span class="metric-label">Annual Yield</span>
                                 <span class="metric-value" id="annual-yield-value">0.00%</span>
+                                <span class="metric-label small">Monthly Yield</span>
+                                <span class="metric-value small" id="monthly-yield-value">0.00%</span>
                             </div>
                             <div class="metric">
-                                <span class="metric-label">Monthly Yield</span>
-                                <span class="metric-value" id="monthly-yield-value">0.00%</span>
-                            </div>
+                                <span class="metric-label">Return on Investment</span>
+                                <span class="metric-value" id="roi-value">R0.00</span>
+                            </div> 
                         </div>
                     </div>
                     
@@ -249,6 +262,8 @@
                                             <th>Date</th>
                                             <th>Solar Revenue (R)</th>
                                             <th>Battery Revenue (R)</th>
+                                            <th>Battery Capital Recovery (R)</th>
+                                            <th>Battery Return on Investment (R)</th>
                                             <th>Total Revenue (R)</th>
                                             <th>Insurance (R)</th>
                                             <th>Maintenance (R)</th>
@@ -258,7 +273,9 @@
                                             <th>O&M Fee (R)</th>
                                             <th>Platform Fee (R)</th>
                                             <th>EBT (R)</th>
+                                            <th>Adjusted EBT (R)</th>
                                             <th>Cumulative Return (R)</th>
+                                            <th>Cumulative Battery Capital Recovered (R)</th>
                                         </tr>
                                     </thead>
                                     <tbody id="cash-flow-body">

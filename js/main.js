@@ -149,9 +149,6 @@ function loadScenario(scenarioName) {
         const batteryCost = parseFloat(batteryCostInput.value) || 0;
         capitalInvestmentInput.value = solarCost + batteryCost;
     }
-    
-    // Optionally trigger calculation
-    // document.getElementById('calculate-btn').click();
 }
 
 /**
